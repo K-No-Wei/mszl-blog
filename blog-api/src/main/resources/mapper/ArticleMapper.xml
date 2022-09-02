@@ -20,5 +20,8 @@
     <sql id="Base_Column_List">
         id, comment_counts, create_date, summary, title, view_counts, weight, author_id, body_id, category_id
     </sql>
+    <select id="listArchives" resultType="com.mszlu.blog.dao.dos.Archives">
+        select year(FROM_UNIXTIME(create_date/1000)) year,month(FROM_UNIXTIME(create_date/1000)) month, count(*) count from ms_article group by year,month;
+    </select>
 
 </mapper>

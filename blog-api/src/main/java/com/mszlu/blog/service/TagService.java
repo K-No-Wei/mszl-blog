@@ -16,4 +16,6 @@ import java.util.List;
  */
 public interface TagService extends IService<Tag> {
     List<TagVo> findTagsByArticleId(Long id);
+
+    List<TagVo> hot(int limit);
 }

@@ -8,8 +8,11 @@ import com.mszlu.blog.vo.TagVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -29,6 +32,16 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     @Override
     public List<TagVo> findTagsByArticleId(Long id) {
         List<Tag> tagList =  tagMapper.findTagsByArticleId(id);
+        return copyList(tagList);
+    }
+
+    @Override
+    public List<TagVo> hot(int limit) {
+        List<Long>  hotsTagIdS = tagMapper.findHotsTagIds(limit);
+        if(CollectionUtils.isEmpty(hotsTagIdS)){
+            return Collections.emptyList();
+        }
+        List<Tag> tagList = tagMapper.findTagsByTagIds(hotsTagIdS);
         return copyList(tagList);
     }
 

@@ -11,13 +11,22 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, avatar, tag_name
+        id, avatar, tag_name as tagName
     </sql>
     <select id="findTagsByArticleId" resultType="com.mszlu.blog.dao.pojo.Tag">
         select <include refid="Base_Column_List"/> from ms_tag
         <where>
             id in (select tag_id from ms_article_tag where article_id = #{articleId})
         </where>
+    </select>
+    <select id="findHotsTagIds" resultType="java.lang.Long">
+        select tag_id from ms_article_tag at group by tag_id order by count(1) desc limit #{size}
+    </select>
+    <select id="findTagsByTagIds" resultType="com.mszlu.blog.dao.pojo.Tag">
+        select <include refid="Base_Column_List" />  from ms_tag where id in
+        <foreach collection="hotsTagIdS" item="tagId" separator="," open="(" close=")">
+            #{tagId}
+        </foreach>
     </select>
 
 </mapper>

@@ -2,6 +2,7 @@ package com.mszlu.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mszlu.blog.dao.dos.Archives;
 import com.mszlu.blog.dao.mapper.TagMapper;
 import com.mszlu.blog.dao.pojo.Article;
 import com.mszlu.blog.dao.mapper.ArticleMapper;
@@ -42,14 +43,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         qw.orderByDesc(Article::getWeight).orderByDesc(Article::getCreateDate);
         Page<Article> page1 = articleMapper.selectPage(page, qw);
         List<Article> articleList = page1.getRecords();
-        List<ArticleVo> articleVoList = cpoyList(articleList);
+        List<ArticleVo> articleVoList = copyList(articleList, true, true);
         return articleVoList;
     }
 
-    private List<ArticleVo> cpoyList(List<Article> articleList) {
+    public List<ArticleVo> copyList(List<Article> articleList, boolean isTag, boolean isAuthor) {
         List<ArticleVo> articleVoList = new ArrayList<>();
         for(Article article : articleList){
-            articleVoList.add(copy(article, true, true));
+            articleVoList.add(copy(article, isTag, isAuthor));
         }
         return articleVoList;
     }
@@ -76,5 +77,32 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
 
         return articleVo;
+    }
+
+    @Override
+    public Result hotArticle(int limit) {
+        LambdaQueryWrapper<Article> qw = new LambdaQueryWrapper<>();
+        qw.orderByDesc(Article::getViewCounts);
+        qw.select(Article::getId, Article::getTitle);
+        qw.last("limit " + limit);
+        List<Article> articles = articleMapper.selectList(qw);
+        List<ArticleVo> articleVoList = copyList(articles, false, false);
+        return Result.success(articleVoList);
+    }
+
+    @Override
+    public Result newArticle(int limit) {
+        LambdaQueryWrapper<Article> qw =  new LambdaQueryWrapper<>();
+        qw.orderByDesc(Article::getCreateDate);
+        qw.select(Article::getId, Article::getTitle);
+        qw.last("limit " + limit);
+        List<Article> articles = articleMapper.selectList(qw);
+        return Result.success(copyList(articles, false, false));
+    }
+
+    @Override
+    public Result listArchives() {
+        List<Archives> archivesList =  articleMapper.listArchives();
+        return Result.success(archivesList);
     }
 }

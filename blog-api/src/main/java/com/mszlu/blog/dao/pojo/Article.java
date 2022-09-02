@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * <p>
@@ -17,9 +18,14 @@ import lombok.EqualsAndHashCode;
  * @since 2022-09-01
  */
 @Data
+@ToString
 @EqualsAndHashCode(callSuper = false)
 @TableName("ms_article")
 public class Article implements Serializable {
+
+    public static final int Article_TOP = 1;
+
+    public static final int Article_Common = 0;
 
     private static final long serialVersionUID = 1L;
 
@@ -30,7 +36,7 @@ public class Article implements Serializable {
      * 评论数量
      */
     @TableField("comment_counts")
-    private Integer commentCounts;
+    private int commentCounts;
 
     /**
      * 创建时间
@@ -54,13 +60,13 @@ public class Article implements Serializable {
      * 浏览数量
      */
     @TableField("view_counts")
-    private Integer viewCounts;
+    private int viewCounts;
 
     /**
      * 是否置顶
      */
     @TableField("weight")
-    private Integer weight;
+    private int weight = Article_Common;
 
     /**
      * 作者id
@@ -78,7 +84,7 @@ public class Article implements Serializable {
      * 类别id
      */
     @TableField("category_id")
-    private Integer categoryId;
+    private Long categoryId;
 
 
 }

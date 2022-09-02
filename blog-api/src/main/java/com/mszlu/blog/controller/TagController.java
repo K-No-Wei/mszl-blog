@@ -1,9 +1,17 @@
 package com.mszlu.blog.controller;
 
 
+import com.mszlu.blog.service.TagService;
+import com.mszlu.blog.vo.Result;
+import com.mszlu.blog.vo.TagVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,8 +21,20 @@ import org.springframework.stereotype.Controller;
  * @author lcc
  * @since 2022-09-01
  */
-@Controller
-@RequestMapping("/tag")
+@RestController
+@RequestMapping("/tags")
 public class TagController {
+    @Autowired
+    private TagService tagService;
 
+    /**
+     * 文章最热标签
+     * @return
+     */
+    @GetMapping("/hot")
+    public Result listHotTags(){
+        int limit = 6;
+        List<TagVo> tagVoList = tagService.hot(limit);
+        return Result.success(tagVoList);
+    }
 }

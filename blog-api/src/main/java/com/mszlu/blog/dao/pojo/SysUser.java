@@ -36,7 +36,7 @@ public class SysUser implements Serializable {
      * 是否管理员
      */
     @TableField("admin")
-    private Boolean admin;
+    private Integer admin;
 
     /**
      * 头像
@@ -54,7 +54,7 @@ public class SysUser implements Serializable {
      * 是否删除
      */
     @TableField("deleted")
-    private Boolean deleted;
+    private Integer deleted;
 
     /**
      * 邮箱
