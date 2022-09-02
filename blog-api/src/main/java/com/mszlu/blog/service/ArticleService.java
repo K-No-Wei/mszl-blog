@@ -44,4 +44,11 @@ public interface ArticleService extends IService<Article> {
      * @return
      */
     Result listArchives();
+
+    /**
+     * 获取文章详情
+     * @param id
+     * @return
+     */
+    Result findArticleById(Long id);
 }
