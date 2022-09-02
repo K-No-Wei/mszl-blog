@@ -1,9 +1,11 @@
 package com.mszlu.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.mszlu.blog.dao.pojo.Tag;
 import com.mszlu.blog.dao.mapper.TagMapper;
 import com.mszlu.blog.service.TagService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mszlu.blog.vo.Result;
 import com.mszlu.blog.vo.TagVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,12 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
         }
         List<Tag> tagList = tagMapper.findTagsByTagIds(hotsTagIdS);
         return copyList(tagList);
+    }
+
+    @Override
+    public Result findAll() {
+        List<Tag> tags = this.tagMapper.selectList(new LambdaQueryWrapper<>());
+        return Result.success(copyList(tags));
     }
 
     private List<TagVo> copyList(List<Tag> tagList) {

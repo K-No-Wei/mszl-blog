@@ -36,7 +36,7 @@ public class Article implements Serializable {
      * 评论数量
      */
     @TableField("comment_counts")
-    private int commentCounts;
+    private Integer commentCounts;
 
     /**
      * 创建时间
@@ -60,13 +60,13 @@ public class Article implements Serializable {
      * 浏览数量
      */
     @TableField("view_counts")
-    private int viewCounts;
+    private Integer viewCounts;
 
     /**
      * 是否置顶
      */
     @TableField("weight")
-    private int weight = Article_Common;
+    private Integer weight = Article_Common;
 
     /**
      * 作者id

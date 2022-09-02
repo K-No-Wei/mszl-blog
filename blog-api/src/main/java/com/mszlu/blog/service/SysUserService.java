@@ -3,6 +3,7 @@ package com.mszlu.blog.service;
 import com.mszlu.blog.dao.pojo.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mszlu.blog.vo.Result;
+import com.mszlu.blog.vo.UserVo;
 
 /**
  * <p>
@@ -37,4 +38,12 @@ public interface SysUserService  {
      * @param sysUser
      */
     void save(SysUser sysUser);
+
+    /**
+     * 查找信息
+     * @param authorId
+     * @return
+     */
+    UserVo findUserVoById(Long authorId);
+
 }

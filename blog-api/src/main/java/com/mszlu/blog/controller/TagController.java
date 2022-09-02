@@ -37,4 +37,9 @@ public class TagController {
         List<TagVo> tagVoList = tagService.hot(limit);
         return Result.success(tagVoList);
     }
+
+    @GetMapping()
+    public Result findAll(){
+        return tagService.findAll();
+    }
 }

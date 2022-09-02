@@ -4,6 +4,7 @@ import com.mszlu.blog.dao.pojo.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.mszlu.blog.vo.ArticleVo;
 import com.mszlu.blog.vo.Result;
+import com.mszlu.blog.vo.params.ArticleParam;
 import com.mszlu.blog.vo.params.PageParams;
 
 import java.util.List;
@@ -51,4 +52,11 @@ public interface ArticleService extends IService<Article> {
      * @return
      */
     Result findArticleById(Long id);
+
+    /**
+     * 发布文章
+     * @param articleParam
+     * @return
+     */
+    Result publish(ArticleParam articleParam);
 }
