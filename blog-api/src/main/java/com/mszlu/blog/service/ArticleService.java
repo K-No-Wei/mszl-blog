@@ -24,7 +24,7 @@ public interface ArticleService extends IService<Article> {
      * @param pageParams
      * @return
      */
-    List<ArticleVo> listArticle(PageParams pageParams);
+    Result listArticle(PageParams pageParams);
 
     /**
      * 查找最热文章

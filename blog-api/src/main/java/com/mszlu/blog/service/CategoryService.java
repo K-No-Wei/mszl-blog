@@ -11,4 +11,12 @@ public interface CategoryService {
      * @return
      */
     Result findAll();
+
+    /**
+     * 导航分类
+     * @return
+     */
+    Result findAllDetail();
+
+    Result categoriesDetailById(Long id);
 }

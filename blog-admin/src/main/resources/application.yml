@@ -1,0 +1,27 @@
+server:
+  port: 8889
+spring:
+  servlet:
+    multipart:
+      max-request-size: 20MB
+      max-file-size: 2MB
+  main:
+    #    开启循环依赖
+    allow-circular-references: true
+  application:
+    name: mszlu_admin_blog
+  #  数据库配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/mszl-blog?useUnicode=true&characterEncoding=UTF-8&serverTimeZone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+
+#
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      table-prefix: ms_

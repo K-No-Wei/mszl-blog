@@ -1,6 +1,7 @@
 package com.mszlu.blog.controller;
 
 
+import com.mszlu.blog.common.cache.Cache;
 import com.mszlu.blog.service.ArticleService;
 import com.mszlu.blog.vo.ArticleVo;
 import com.mszlu.blog.vo.Result;
@@ -35,9 +36,8 @@ public class ArticleController {
     @PostMapping
     public Result listArticle(@RequestBody PageParams pageParams) {
         //ArticleVo 页面接收的数据
-        List<ArticleVo> articles = articleService.listArticle(pageParams);
+        return articleService.listArticle(pageParams);
 
-        return Result.success(articles);
     }
 
     /**
@@ -45,6 +45,7 @@ public class ArticleController {
      * @return
      */
     @PostMapping("hot")
+    @Cache(expire = 5 * 60 * 1000,name = "hot_article")
     public Result hotArticle(){
         int limit = 5;
         return articleService.hotArticle(limit);

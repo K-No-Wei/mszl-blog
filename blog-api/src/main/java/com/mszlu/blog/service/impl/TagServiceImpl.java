@@ -53,6 +53,20 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
         return Result.success(copyList(tags));
     }
 
+    @Override
+    public Result findAllDetail() {
+        LambdaQueryWrapper<Tag> queryWrapper = new LambdaQueryWrapper<>();
+        List<Tag> tags = this.tagMapper.selectList(queryWrapper);
+        return Result.success(copyList(tags));
+    }
+
+    @Override
+    public Result findDetailById(Long id) {
+        Tag tag = tagMapper.selectById(id);
+        TagVo copy = copy(tag);
+        return Result.success(copy);
+    }
+
     private List<TagVo> copyList(List<Tag> tagList) {
         List<TagVo> tagVos = new ArrayList<>();
         for (Tag tag : tagList) {
